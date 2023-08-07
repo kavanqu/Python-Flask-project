@@ -1,0 +1,161 @@
+
+{% extends "base.html" %}
+{% block title %}Skills For Life Database{% endblock %}
+{% block content %}
+<h1 class="display-4">Skills For Life Database</h1>
+<div>
+    {% if count == 0 %}
+    <p>There are no users.</p>
+    {% elif count == 1 %}
+    <p>There is 1 user.</p>
+    {% else %}
+    <p>There are {{ user_count }} users.</p>
+    {% endif %}
+</div>
+<div>
+    <ul class="nav nav-pills">
+        <li ><a data-toggle="pill" href="#home">Home</a></li>
+        <li><a data-toggle="pill" href="#User_Database">User Database</a></li>
+        <li><a data-toggle="pill" href="#Course_Ranking">Course Ranking</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">  {# menu 1 #}
+            <h3>HOME</h3>
+            <p>Some content.</p>
+        </div>
+        <div id="User_Database" class="tab-pane fade">  {# Menu 2 #}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Membership</th>
+                        <th>Remarks</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users_list %}
+                    <tr>
+                        <td>{{ user.get_user_id() }}</td>
+                        <td>{{ user.get_first_name() }}</td>
+                        <td>{{ user.get_last_name() }}</td>
+                        <td>{{ user.get_gender() }}</td>
+                        {% if user.get_membership() == "F" %}
+                        <td>Fellow</td>
+                        {% elif user.get_membership() == "S" %}
+                        <td>Senior</td>
+                        {% elif user.get_membership() == "P" %}
+                        <td>Professional</td>
+                        {% endif %}
+                        <td>{{ user.get_remarks() }}</td>
+                        <td><a href="/updateUser/{{user.get_user_id()}}" class="btn btn-warning">Update</a></td>
+                        <td>
+                            <form action="{{url_for('delete_user', id=user.get_user_id())}}" method="POST">
+
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{user.get_user_id()}}">
+                                  Delete  {# The button toggles the elements with the modal class #}
+                                </button>
+
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal_{{user.get_user_id()}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Confirmation</h4> {# the header text #}
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">  {# the text #}
+                                                Are you sure you want to delete {{user.get_first_name()}} {{user.get_last_name()}}?
+
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Delete" class="btn btn-danger"> {# the delete button #}
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            </div>
+
+                                        </div>
+                                  </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="Course_Ranking" class="tab-pane fade">  {# menu 3 #}
+            <table class="table table-striped">
+                <tr>
+                    <th>Ranking</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Category Type</th>
+                    <th>Price</th>
+                    <th>Number of Bookings</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for course in course_list %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{course.get_course_id()}}</td>
+                        <td>{{course.get_course_name()}}</td>
+                        <td>{{course.get_course_type()}}</td>
+                        <td>{{course.get_course_price()}}</td>
+                        <td>{{course.get_course_bookings()}}</td>
+                        <td>
+                            <a href="/updateCourse/{{course.get_course_id()}}" class="btn btn-warning">Update</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('delete_course', course_id=course.get_course_id())}}" method="POST">
+
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#course_modal_{{course.get_course_id()}}">
+                                  Delete  {# The button toggles the elements with the modal class #}
+                                </button>
+
+                                <!-- The Modal -->
+                                <div class="modal" id="course_modal_{{course.get_course_id()}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Confirmation</h4> {# the header text #}
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">  {# the text #}
+                                                Are you sure you want to delete {{course.get_course_name()}} by {{course.get_course_company()}}?
+
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Delete" class="btn btn-danger"> {# the delete button #}
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            </div>
+
+                                        </div>
+                                  </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
