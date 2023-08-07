@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, validators, RadioField, SubmitField, TextAreaField
+from wtforms import Form, StringField, validators, RadioField, SubmitField, TextAreaField,SelectField,DateTimeField,IntegerField,FileField
 from flask import url_for
 
 class Feedbackform(Form):
@@ -14,7 +14,7 @@ class Reply(Form):
     submit = SubmitField()
 
 
-class CreateUserForm(Form):
+class CreateUserForms(Form):
     first_name = StringField('First Name', [validators.Length(min=1, max=150), validators.DataRequired()])
     last_name = StringField('Last Name', [validators.Length(min=1, max=150), validators.DataRequired()])
     gender = SelectField('Gender', [validators.DataRequired()],  choices=[('', 'Select'), ('F', 'Female'), ('M', 'Male')], default='')

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from form import Feedbackform, Reply, CreateUserForm, CreateCourseForm, UpdateCourseForm
+from form import Feedbackform, Reply, CreateUserForms, UpdateCourseForm, CreateCourseForm
 import shelve
 import feedback as f
 # from feedback import msg
@@ -22,9 +22,11 @@ app.config['MAX_CONTENT_LENGTH'] = 16 *1024 * 1024  # setting limits to file siz
 @app.route('/')
 def home():
     # resetting shopping cart
-    cart_db = shelve.open('shopping_cart.db', 'w')
-    shopping_lst = []
-    cart_db['Cart'] = shopping_lst
+    # cart_db = shelve.open('shopping_cart.db', 'w')
+    # shopping_lst = []
+    # cart_db['Cart'] = shopping_lst
+
+    print("hello")
     return render_template('home.html')
 
 @app.route('/Feedbackform', methods=['GET', 'POST'])
@@ -168,6 +170,10 @@ def delete_user(id):
 
     return redirect(url_for('retrieveUsers'))
 
+@app.route('/contactpage')
+def contactpage():
+    return render_template('contactpage.html')
+
 
 # COURSE SECTION
 
@@ -248,11 +254,14 @@ def create_course():
     return render_template('createCourse.html', form=create_course_form, update_check=False)
 
 
+
+
+
 # courses page
 @app.route('/courses')
 def courses():
     course_dict = {}
-    course_db = shelve.open('course_storage.db', 'r')
+    course_db = shelve.open('course_storage.db', 'c')
     # print("test1")
     course_dict = course_db['Courses']
     # print("test")
@@ -389,7 +398,7 @@ def add_cart(course_id):
 
 @app.route("/shoppingCart")
 def shopping_cart():
-    cart_db = shelve.open('shopping_cart.db', 'r')
+    cart_db = shelve.open('shopping_cart.db', 'c')
     shopping_lst = cart_db['Cart']
     cart_db.close()
 
@@ -421,7 +430,7 @@ def retrieve_data():
     # retrieving the user database
     users_dict = {}
     db = shelve.open('storage.db', 'r')
-    users_dict = db['Users']
+    users_dict = db['feedback']
     db.close()
 
     # extracting the user objects
@@ -432,7 +441,7 @@ def retrieve_data():
 
     # retrieving course database
     course_dict = {}
-    course_db = shelve.open('course_storage.db', 'r')
+    course_db = shelve.open('course_storage.db', 'c')
     course_dict = course_db['Courses']
     db.close()
 
@@ -463,9 +472,7 @@ def retrieve_data():
 # Database stuff
 
 
-@app.route('/contactpage')
-def contactpage():
-    return render_template('contactpage.html')
+
 
 if __name__ == '__main__':
     app.run()

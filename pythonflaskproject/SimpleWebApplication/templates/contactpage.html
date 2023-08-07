@@ -4,10 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
     <style>
         body {
             background-color: #C4DDFF; /* Set background color for the body */
+        }
+        .contact-heading-box {
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto; /* Center the box */
         }
         .container {
             max-width: 800px;
@@ -20,52 +27,49 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 10px; /* Adjust top margin for closer spacing */
+            margin-top: 20px; /* Adjust top margin for better spacing */
         }
         .contact-info img {
             max-width: 100px;
             height: auto;
-            margin-right: 10px; /* Adjust margin between image and text */
+            margin-right: 20px; /* Adjust margin between image and text */
         }
         .contact-info div {
             flex-grow: 1; /* Allow the text to take up remaining space */
         }
         .contact-heading {
-            text-align: center;
-            margin-top: 40px;
             font-size: 24px;
         }
     </style>
 </head>
 <body>
-    <h1 class="contact-heading">Contact Us</h1>
-    <div class="container" style = "background-color: white">
+    <div class="p-3 border container d-flex justify-content-center align-items-center" style='background :#FEE2C5; height : 100px ; width: 450px '>
+        <h1 class="display-4" style="font-weight: bold;">Your Feedback</h1>
+    </div>
+    <div class="container" style="background-color: white">
         <div class="contact-info">
-            <img src="{{ url_for('static', filename='person1.jpeg') }}" height="200px" width="200px" class="image"/>
+            <img class="image" height="200px" src="{{ url_for('static', filename='person1.jpeg') }}" width="300px"/>
             <div>
                 <p><strong>Name:</strong> Mr jackie tan</p>
-                <p><strong>Course:</strong> Cyber Secruity</p>
+                <p><strong>Course:</strong> Cyber Security</p>
                 <p><strong>Email:</strong> jackie@gmail.com</p>
                 <p><strong>Contact Number:</strong> +1234567890</p>
             </div>
         </div>
     </div>
     <br>
-    <div class="container" style = "background-color: white">
+    <div class="container" style="background-color: white">
         <div class="contact-info">
-            <img src="{{ url_for('static', filename='person2.jpeg') }}" height="200px" width="200px" class="image"/>
+            <img class="image" height="200px" src="{{ url_for('static', filename='person2.jpeg') }}" width="300px"/>
             <div>
-                <p><strong>Name:</strong>Mr johnny lim</p>
-                <p><strong>Course:</strong>Applied AI & Analytics</p>
-                <p><strong>Email:</strong>johnny@gmail.com</p>
+                <p><strong>Name:</strong> Mr johnny lim</p>
+                <p><strong>Course:</strong> Applied AI & Analytics</p>
+                <p><strong>Email:</strong> johnny@gmail.com</p>
                 <p><strong>Contact Number:</strong> +9876543210</p>
             </div>
         </div>
     </div>
 </body>
-</html>
-
-
 
 {% endblock %}
 
