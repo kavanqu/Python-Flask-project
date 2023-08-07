@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Course Booking System - Course Details{% endblock %}
+
+{% block content %}
+<div style="width: 80% ; margin: 10px 10% 0 10%;">
+    <table width="100%">
+        <tr>
+            <td rowspan="4" style="width: 30%">
+                {# img src has to be like that due to url problems #}
+                <img src="{{url_for('static', filename='files/' + course.get_course_image()) | replace('\\', '/')}}" alt="oi" style="height:300px">
+            </td>
+            <td><h2>{{course.get_course_name()}}</h2></td>
+        </tr>
+        <tr>
+            <td><p>Available Dates: <br> {{ course.get_course_date() }}</p></td>
+        </tr>
+        <tr>
+            <td><p>Course Fees: <br>{{ course.get_course_price() }}</p></td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid black">
+                <table>
+                    <tr>
+                        <td>
+                            Rating:
+                            {% for i in range(course.get_course_rating()) %}
+                                <img src="{{url_for('static', filename='files/star.png')}}" alt="oi" style="width:25px">
+                            {% endfor %}
+
+                        </td>
+                        <td style="padding-left: 15px">Availability: {{ course.get_course_bookings() }} / {{course.get_course_capacity()}}</td>
+                        <td>
+                            {% if course.get_course_bookings() == course.get_course_capacity() %}
+                                <p style="color: red">FULL</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="/updateCourse/{{course.get_course_id()}}">Update Course</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+
+    {# course details #}
+
+    <table width="100%">
+        <tr>
+            <td style="width:65%">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5>Course Overview</h5>
+                        {{course.get_course_overview()}}
+                    </div>
+
+                </div>
+            </td>
+            <td rowspan="3" style="text-align: center; width:30%;">Training Commitment: {{course.get_course_commitment()}} <br> Language: {{course.get_course_language()}} <br>
+                People In Charge: {{course.get_course_people_in_charge()}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Course Objectives</h5>
+                        {{course.get_course_objective()}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Course Content</h5>
+                        {{course.get_course_content()}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Course Requirements</h5>
+                        {{course.get_course_requirements()}}
+                    </div>
+                </div>
+            </td>
+            <td style="width:100%">
+                <div class="d-flex justify-content-center">
+                    {% if course.get_course_bookings() >= course.get_course_capacity() %} {# if the course is full#}
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Course Is Full</button>
+                    {% else %}
+                        {# the url_for is to send like a url with those details in it #}
+                        <a href="{{ url_for('paymentMethods', course_id=course.get_course_id())}}" class="btn btn-warning" style="width: 60%; text-align:center" >Testing</a>
+                    {% endif %}
+                </div>
+
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Course Capacity Is Full</h3>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>The course has reached its capacity, please choose another course</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="d-flex justify-content-center">
+                    <a href="{{ url_for('add_cart', course_id=course.get_course_id())}}" type="button" class="btn btn-warning">Add to Cart</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

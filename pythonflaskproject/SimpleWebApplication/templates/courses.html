@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Course Booking System - View Courses{% endblock %}
+
+{% block content %}
+
+<table>  {# button row #}
+    <tr>
+        <td><a href="/createCourse" class="btn btn-primary">Add Course +</a></td>
+    </tr>
+</table>
+
+<p>There are {{count}}  number of courses</p>
+
+<table>
+    {% for course in courses_lst %}   {# making the card #}
+        {% if loop.index % 3 == 1 %}
+            <tr>
+        {% endif %}
+        <td>
+            <div class="card" style="width:300px; margin: 0 0 50px 100px; background-color: #e0e0e0;">
+
+                <img src="{{ url_for('static', filename='files/' + course.get_course_image()) | replace('\\', '/') }}" alt="" style="height:300px">{# course image #}
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <td>
+                                {% for i in range(course.get_course_rating()) %}  {# printing the stars #}
+                                    <img src="static/files/star.png" alt="" style="width:25px">
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                    {# Course name #}
+                    <h4 class="card-title"><a href="{{ url_for('courseDisplay', course_id=course.get_course_id()) }}">{{course.get_course_name()}}</a></h4>
+                </div>
+            </div>
+        </td>
+        {% if loop.index % 3 == 0 or loop.last %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+
+
+
+{% endblock %}

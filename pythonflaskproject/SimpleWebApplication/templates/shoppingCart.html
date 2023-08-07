@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Skills for Life - Shopping Cart{% endblock %}
+
+{% block content %}
+<div style="width: 80% ; margin: 10px 10% 0 10%;">
+    <form action="POST">
+        <table style="width:100%;">
+            {% for course in shopping_lst %}
+                <tr>
+                    <td>
+                        <div class="form-check", style="width:100%;">
+
+                            <div class="card" style="display: flex; ">
+                                <input type="checkbox" class="form-check-input" id="check_{{course.get_course_id()}}" value="{{course}}" style="margin-top: 150px;">
+                                <label for="check_{{course.get_course_id()}}">
+                                    <table>
+                                        <tr>
+                                            <td width="30%" rowspan="3"><img src="{{url_for('static', filename='files/' + course.get_course_image()) | replace('\\', '/')}}" alt="oi" style="height:300px"></td>
+                                            <td>Course Name: {{course.get_course_name()}}</td>
+                                            <td>
+                                                {% for i in range(course.get_course_rating()) %}
+                                                    <img src="{{url_for('static', filename='files/star.png')}}" alt="oi" style="width:25px">
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date: {{course.get_course_date()}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Overview: {{course.get_course_overview()}}</td>
+                                            <td>{{course.get_course_price()}}</td>
+                                        </tr>
+                                    </table>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+
+
+{% endblock %}

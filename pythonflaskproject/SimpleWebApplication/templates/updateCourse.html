@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Library Loan System - Create Course{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Create Course</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+    <div class="card" style="background-color: #e0e0e0;">
+        <div class="card-body">
+            <h3>Main Details</h3>
+            <div class="form-group">
+                {{ render_field(form.course_name, class="form-control", placeholder='Applied Ai and Analytics') }} {# the function #}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_type, class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ render_field(form.course_date, class="form-control") }}  {# planning to change to start and end date #}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_price, class="form-control" ,placeholder="120")}}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_rating, class="form-check", style='liststyle-type:none;') }}
+            </div>
+            <div class="form-group">
+                {{render_field(form.course_language, class='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_capacity, class='form-control' , placeholder="10")}}
+                {{ render_field(form.course_bookings) }}
+            </div>
+            <div id="prof">
+                <div class="form-group">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>Current Image</td>
+                                <td><img src="{{url_for('static', filename='files/' + course.get_course_image()) | replace('\\', '/')}}" alt="oi" style="height:300px"></td>
+                                <td style="padding-left: 20px">{{ render_field(form.course_image, class="form-control-file") }}</td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="background-color: #e0e0e0; margin-top: 25px;">
+        <div class="card-body">
+            {# company details #}
+            <h3>Course Descriptions</h3>
+            <div class="form-group">
+                {{render_field(form.course_company, class='form-control' , placeholder="Skills for Life")}}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_people_in_charge, class='form-control', placeholder="Tissue Paper")}}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_commitment, class='form-control')}}
+            </div>
+
+            {# Heavy Inputs #}
+            <div class="form-group">
+                {{ render_field(form.course_overview, class='form-control', placeholder="This course will teach you basic data analytic skills") }}
+            </div>
+
+            <div class="form-group">
+                {{ render_field(form.course_objective, class='form-control', placeholder="What you will learn:\nData Analytics") }}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_content , class='form-control', placeholder="Intro into data analytics") }}
+            </div>
+            <div class="form-group">
+                {{ render_field(form.course_requirement , class='form-control', placeholder="Polytechnic Graduate") }}
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock %}

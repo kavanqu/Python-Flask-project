@@ -48,7 +48,7 @@ def retrieve_users():
         user = users_dict.get(key)
         users_list.append(user)
 
-    return render_template('retrieveUsers.html', count=len(users_list), users_list=users_list)
+    return render_template('retrieveData.html', count=len(users_list), users_list=users_list)
 
 @app.route('/updateUser/<int:id>/', methods=['GET', 'POST'])
 def update_user(id):
