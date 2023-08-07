@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            background-color: #C4DDFF; /* Set background color for the body */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto; /* Adjust margin for better spacing */
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px; /* Adjust top margin for closer spacing */
+        }
+        .contact-info img {
+            max-width: 100px;
+            height: auto;
+            margin-right: 10px; /* Adjust margin between image and text */
+        }
+        .contact-info div {
+            flex-grow: 1; /* Allow the text to take up remaining space */
+        }
+        .contact-heading {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="contact-heading">Contact Us</h1>
+    <div class="container" style = "background-color: white">
+        <div class="contact-info">
+            <img src="{{ url_for('static', filename='person1.jpeg') }}" height="200px" width="200px" class="image"/>
+            <div>
+                <p><strong>Name:</strong> Mr jackie tan</p>
+                <p><strong>Course:</strong> Cyber Secruity</p>
+                <p><strong>Email:</strong> jackie@gmail.com</p>
+                <p><strong>Contact Number:</strong> +1234567890</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container" style = "background-color: white">
+        <div class="contact-info">
+            <img src="{{ url_for('static', filename='person2.jpeg') }}" height="200px" width="200px" class="image"/>
+            <div>
+                <p><strong>Name:</strong>Mr johnny lim</p>
+                <p><strong>Course:</strong>Applied AI & Analytics</p>
+                <p><strong>Email:</strong>johnny@gmail.com</p>
+                <p><strong>Contact Number:</strong> +9876543210</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock %}
+

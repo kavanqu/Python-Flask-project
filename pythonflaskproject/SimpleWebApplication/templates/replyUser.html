@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field, render_field_custom %}
+
+<div class="container" style="background-color: #e0e0e0; width: 80%; margin: 0 10%; padding-top: 20px;"> <!-- Adjusting container width and margins -->
+    {% for user in user_list %}
+    {% if user.get_user_id() == id %}
+    <div class="card" style="background-color: white">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 d-flex align-items-center justify-content-center">
+                    <img src="{{ url_for('static', filename=user.get_rating()) }}" alt="image" width="80px" height="80px">
+                </div>
+                <div class="col-md-1 vertical-line" style="height: 100px;"></div> <!-- Vertical line -->
+                <div class="col-md-8">
+                    <p><strong>Name:</strong> {{ user.get_name() }}</p>
+                    <p><strong>Subject:</strong> {{ user.get_subject() }}</p>
+                    <p><strong>Details:</strong> {{ user.get_details() }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    <br>
+        <form id="theform" method="POST" action="">
+                <div class="row">
+                <div class="p-2" style="margin-left: 10px">Reply:</div>
+                <div class="p-2">{{ render_field(reply.reply, style="width: 850px;", placeholder="Example:") }}</div>
+            </div>
+            <br>
+            <div class="row gx-5 justify-content-start"> <!-- Use Bootstrap utility class -->
+                <button type="button" class="btn btn-primary" onclick="showReplyConfirmation();" style="background-color: #ff0000; color: black; margin-left: 775px;">
+                Reply
+                </button>
+                <button type="button" class="btn btn-primary" onclick="showDeleteConfirmation();" style="background-color: #ff0000; color: black; margin-left: 20px;">
+                Delete
+                </button>
+            </div>
+            <br>
+            <input type="hidden" name="txtAction" id="txtAction" />
+            <script>
+                function showReplyConfirmation() {
+                    if (confirm("You have replied to the customer.")) {
+                        document.getElementById("txtAction").value = "dosave";
+                        document.getElementById("theform").submit();
+                    }
+                }
+
+                function showDeleteConfirmation() {
+                    if (confirm("Are you sure you want to delete?")) {
+                        document.getElementById("txtAction").value = "dodelete";
+                        document.getElementById("theform").submit();
+                    }
+                }
+            </script>
+        </form>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+</div> <!-- Closing the container -->
+<br>
+<style>
+    .vertical-line {
+        border-left: 1px solid #000000; /* Style and color of the vertical line */
+        margin-top: 15px; /* Adjust as needed to align with the content */
+        margin-bottom: 15px; /* Adjust as needed to align with the content */
+    }
+</style>
+
+{% endblock %}
+
